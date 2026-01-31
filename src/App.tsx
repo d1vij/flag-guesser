@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./tailwind.css";
+
+// function App() {
+//     return (
+//         <div className="bg-white size-full absolute top-0">
+//             <CountryFlag />
+//         </div>
+//     );
+// }
+
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [colorA, setColorA] = useState("#F00");
+    const [colorB, setColorB] = useState("#0F0");
+    const [result, setResult] = useState("")
+    function handleClick() {
+        
+    }
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <div>
+            <input
+                type="color"
+                value={colorA}
+                onChange={(e) => setColorA(e.target.value)}
+            />
+            <input value={colorA} onChange={(e) => setColorB(e.target.value)} />
+            <input
+                type="color"
+                value={colorB}
+                onChange={(e) => setColorA(e.target.value)}
+            />
+            <input value={colorB} onChange={(e) => setColorB(e.target.value)} />
+
+            <button type="button" onClick={handleClick}>
+                Calculate DeltaE
+            </button>
+            <span>{result}</span>
+        </div>
+    );
 }
 
-export default App
+export default App;
