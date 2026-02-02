@@ -64,7 +64,7 @@ $\begin{pmatrix}X \\Y \\Z\end{pmatrix}=\begin{pmatrix}0.4124564 & 0.3575761 & 0.
 
 4. Applying the function _f_ over previously calculated linear xyz color values normalized by its reference illuminant
 
-The the reference illuminants are the 2° D65 white points having values
+The the reference illuminants are the 2° [D65](https://en.wikipedia.org/wiki/Standard_illuminant#D65_values) white points having values
 
 $X_n = 0.95047$
 $Y_n = 1.00000$
@@ -85,12 +85,11 @@ $L = (116 * f_y) - 16$
 $a* = 500 * (f_x - f_y)$
 $b* = 200 * (f_y - f_z)$
 
-
 ## DeltaE Calculation
 
 The DeltaE is the difference in visual perception of any two given colors.
 
-
+It gives the 'distance' between any two colors in the CIELab color space. Smaller distances indicate that the colors are nearby in shade.
 
 #### Sources
 
