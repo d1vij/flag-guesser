@@ -91,6 +91,30 @@ The DeltaE is the difference in visual perception of any two given colors.
 
 It gives the 'distance' between any two colors in the CIELab color space. Smaller distances indicate that the colors are nearby in shade.
 
+
+## Weighted algorithm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #### Sources
 
 1. https://en.wikipedia.org/wiki/CIELAB_color_space

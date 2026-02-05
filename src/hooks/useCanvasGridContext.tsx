@@ -1,56 +1,61 @@
 import type { CellGrid, PropsWithChildren, StateSetterFunction } from "@/types";
 import { createContext, useContext, useState } from "react";
 
-
 type TColorGridContext = {
-    grid: CellGrid;
+    grid: CellGrid[];
     dimensions: {
         height: number;
         width: number;
+        cellSize: number;
     };
 };
 
-type PVT_TColorGridContext = TColorGridContext & {
-    setGrid: StateSetterFunction<CellGrid>;
+type PrivateContext = TColorGridContext & {
+    setGrid: StateSetterFunction<CellGrid[]>;
 };
 
-const ColorGridContext = createContext<PVT_TColorGridContext | null>(null);
+const ColorGridContext = createContext<PrivateContext | null>(null);
 
-type ColorGridContextProviderProps = PropsWithChildren & {
+type ProviderProps = PropsWithChildren & {
     height: number;
     width: number;
+    cellSize: number;
 };
 
-export function ColorGridContextProvider({ children, height, width }: ColorGridContextProviderProps) {
-    const [grid, setGrid] = useState<CellGrid>(() => {
-        return new Array(height * width).fill("#FFFFFF");
-    });
+export function ColorGridContextProvider({ children, height, width, cellSize }: ProviderProps) {
+    const [grid, setGrid] = useState<CellGrid[]>(() =>
+        Array.from({ length: height }, () => Array.from({ length: width }, () => "#FFFFFF")),
+    );
 
     return (
-        <ColorGridContext
+        <ColorGridContext.Provider
             value={{
                 grid,
                 setGrid,
-                dimensions: { height, width },
+                dimensions: { height, width, cellSize },
             }}
         >
             {children}
-        </ColorGridContext>
+        </ColorGridContext.Provider>
     );
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useColorGridContext() {
     const ctx = useContext(ColorGridContext);
-    if (ctx === null) {
-        throw new Error("useColorGridContext can only be used within a ColorGridContextProvider");
+    if (!ctx) {
+        throw new Error("useColorGridContext must be used within ColorGridContextProvider");
     }
 
-    const { setGrid, dimensions, grid } = ctx;
+    const { grid, setGrid, dimensions } = ctx;
 
-    function updateCellColor(at: number, color: string) {
-        setGrid((c) => {
-            return c.map((oldColor, idx) => (idx === at ? color : oldColor));
+    function updateCellColor(row: number, col: number, color: string) {
+        setGrid((prev) => {
+            if (prev[row][col] === color) return prev;
+
+            const next = prev.map((r) => [...r]);
+            next[row][col] = color;
+            return next;
         });
     }
 

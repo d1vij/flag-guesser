@@ -6,7 +6,7 @@ import { useColorGridContext } from "@/hooks/useCanvasGridContext";
 import { useState } from "react";
 import type { FlagRecords } from "@/types";
 
-const countries = countries_json as unknown as FlagRecords
+const countries = countries_json as unknown as FlagRecords;
 
 const _opts: opts = {
     distanceThreshold: 50,
@@ -24,14 +24,16 @@ export default function DebugPanel() {
     const { grid } = useColorGridContext();
 
     function guessFlag() {
-        setGuess(() => guessFlagName(grid, countries, _opts));
+        setGuess(() => guessFlagName(grid.flat(), countries, _opts));
     }
 
     return (
         <div className="bg-green-300">
             <p>Guesses</p>
             <p>{guess}</p>
-            <button type="button" onClick={guessFlag}>Guess</button>
+            <button type="button" onClick={guessFlag}>
+                Guess
+            </button>
         </div>
     );
 }

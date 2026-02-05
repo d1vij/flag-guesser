@@ -67,7 +67,7 @@ export default function guessFlagName(
     userBuffer: CellGrid,
     flagBuffers: FlagRecords,
     _opts: Partial<opts> = {},
-): string[]{
+): string[] {
     const opts = { ...defaultOpts, ..._opts };
 
     DEBUG = opts.printDebug;
@@ -81,7 +81,7 @@ export default function guessFlagName(
         minPxMatchCount: opts.minPixelsWithinThresholdToCountAsAMatch,
         recursionCount: opts.maximumRecursionCount,
         threshold: opts.distanceThreshold,
-        thresholdDelta: opts.thresholdDelta
+        thresholdDelta: opts.thresholdDelta,
     });
 }
 
@@ -89,13 +89,13 @@ function __guessFlagName(
     userBuffer: CellGrid,
     flagBuffers: FlagRecords,
     opts: {
-        minPxMatchCount: number,
-        threshold: number,
-        thresholdDelta: number,
-        lookupSubset?: string[],
-        maximumMatches: number
-        recursionCount: number
-    }
+        minPxMatchCount: number;
+        threshold: number;
+        thresholdDelta: number;
+        lookupSubset?: string[];
+        maximumMatches: number;
+        recursionCount: number;
+    },
 ): string[] {
     if (DEBUG) {
         console.log("-- -- -- -- -- -- -- -- --");
@@ -106,7 +106,7 @@ function __guessFlagName(
 
     const matches: string[] = [];
 
-    const lookupSubset = opts.lookupSubset || Object.keys(flagBuffers)
+    const lookupSubset = opts.lookupSubset || Object.keys(flagBuffers);
 
     for (const flagName of lookupSubset) {
         const flagBuffer = flagBuffers[flagName];
@@ -140,18 +140,18 @@ function __guessFlagName(
         }
     }
 
-    if (matches.length < opts.maximumMatches || opts.recursionCount - 1 <=0 || (opts.threshold - opts.thresholdDelta <= 1)) {
-        return matches
+    if (
+        matches.length < opts.maximumMatches ||
+        opts.recursionCount - 1 <= 0 ||
+        opts.threshold - opts.thresholdDelta <= 1
+    ) {
+        return matches;
     }
 
     opts.recursionCount--;
     opts.threshold -= opts.thresholdDelta;
-    return __guessFlagName(
-        userBuffer,
-        flagBuffers,
-        {
-            ...opts,
-            lookupSubset: matches
-        }
-    )
+    return __guessFlagName(userBuffer, flagBuffers, {
+        ...opts,
+        lookupSubset: matches,
+    });
 }
