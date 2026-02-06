@@ -94,6 +94,14 @@ It gives the 'distance' between any two colors in the CIELab color space. Smalle
 
 ## Weighted algorithm
 
+Idea: the whole of "flag guessing" whould assign a weight to each flag, based factors. The weight would decide how "likely" the flag is to be the one that is being drawn
+
+Factors
+1. Number of common colors present in user buffer and flag buffer +10
+2. Number of common pixels within threshold for both buffers +1
+3. Average color distance (threshold dependent), Lower the avg distance, higher the score it gets
+
+
 
 
 

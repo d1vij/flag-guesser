@@ -126,7 +126,8 @@ function __guessFlagName(
                 console.log(`flag pixel cielab is ${flagBuffer[idx]}`);
             }
 
-            const distance = DE94.compute(userCielab, flagBuffer[idx]);
+            // const distance = DE94.compute(userCielab, flagBuffer[idx]);
+            const distance = DE94.compute(flagBuffer[idx], userCielab);
             if (DEBUG) {
                 console.log(`Pixel ${idx} distance ${distance}`);
             }

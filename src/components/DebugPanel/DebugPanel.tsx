@@ -9,22 +9,22 @@ import type { FlagRecords } from "@/types";
 const countries = countries_json as unknown as FlagRecords;
 
 const _opts: opts = {
-    distanceThreshold: 50,
+    distanceThreshold: 70,
     thresholdDelta: 10,
 
-    minPixelsWithinThresholdToCountAsAMatch: 400,
+    minPixelsWithinThresholdToCountAsAMatch: 350,
     maximumRecursionCount: 5,
     maxMatchesToReturns: 10,
 
     userBufferColorType: "hex",
-    printDebug: false,
+    printDebug: true,
 };
 export default function DebugPanel() {
     const [guess, setGuess] = useState<string[]>([]);
     const { grid } = useColorGridContext();
 
     function guessFlag() {
-        setGuess(() => guessFlagName(grid.flat(), countries, _opts));
+        setGuess(() => guessFlagName(grid.flat(), { I: countries["Indonesia"] }, _opts));
     }
 
     return (
